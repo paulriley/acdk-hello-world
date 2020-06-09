@@ -1,0 +1,54 @@
+{
+	"name": "Dotnet Lambda Template",
+	"dockerFile": "Dockerfile",
+	"containerUser": "developer",
+	
+	"build" : {
+		"args": {
+			"USERNAME": "developer"
+		}
+	},
+
+	// Use 'settings' to set *default* container specific settings.json values on container create. 
+	// You can edit these settings after create using File > Preferences > Settings > Remote.
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"terraform.indexing": {
+			"enabled": false
+		},
+		"terraform.languageServer": {
+			"enabled": true,
+			"installCommonProviders": false,
+			"pathToBinary": "/usr/share/terraform/lsp"
+		}
+	},
+
+	"mounts": [
+		// Use Docker from inside the container. See https://aka.ms/vscode-remote/samples/docker-in-docker for details.
+		"type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock",
+		// Bind aws configuration folder to local
+		"type=bind,src=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,dst=/home/developer/.aws"
+	],
+
+	// Add the IDs of extensions you want installed when the container is created in the array below.
+	"extensions": [
+		"aaron-bond.better-comments",
+		"amazonwebservices.aws-toolkit-vscode",
+		"eamodio.gitlens",
+		"josefpihrt-vscode.roslynator",
+		"mauve.terraform",
+		"mikestead.dotenv",
+		"ms-azuretools.vscode-docker",
+		"ms-mssql.mssql",
+		"ms-vscode.csharp",
+		"ms-vscode.powershell",
+		"patcx.vscode-nuget-gallery",
+		"PeterJausovec.vscode-docker",
+		"redhat.vscode-yaml",
+		"tintoy.msbuild-project-tools",
+		"yzhang.markdown-all-in-one"
+	],
+	
+	// Necessary hack for Docker for Windows. Hoping WSL2 is going to make this unnecessary
+	"postCreateCommand": "sudo chown -R developer /var/run/docker.sock"
+}

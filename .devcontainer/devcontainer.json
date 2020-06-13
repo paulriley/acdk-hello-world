@@ -11,7 +11,7 @@
 		"terraform.languageServer": {
 			"enabled": true,
 			"installCommonProviders": false,
-			"pathToBinary": "/usr/share/terraform/lsp"
+			"pathToBinary": "/usr/share/terraform/lsp/terraform-ls"
 		}
 	},
 
